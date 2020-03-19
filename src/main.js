@@ -4,7 +4,7 @@ import router from './router'
 import '@/permisstion'
 import store from './store'
 import Vant from 'vant'
-import 'vant/lib/index.css'
+import 'vant/lib/index.less'// 引入vant组件的less文件
 import 'amfe-flexible'
 import '@/styles/index.less'// 引入全局的自定义样式  因为要覆盖vant的样式
 
