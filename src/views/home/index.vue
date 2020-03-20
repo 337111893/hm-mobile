@@ -1,10 +1,11 @@
 <template>
   <!-- 整体必须有container -->
   <div class="container">
-    <!-- 内部需要放置子 标签  title值为当前显示的内容-->
-         <!-- van-tab是vant组件的样式  -->
     <van-tabs >
-      <van-tab :title="`标签${item}`" v-for="item in 10" :key="item">
+          <!-- 内部需要放置子 标签  title值为当前显示的内容-->
+         <!-- van-tab是vant组件的样式  -->
+       <!-- 拿到channels数据之后吧 应该做什么 -->
+      <van-tab :title="`${item.name}`" v-for="item in channels" :key="item.id">
         <!-- 内容列表加div，且类名scroll-wrapper，为了滚动 -->
         <!-- 生成若干个单元格 -->
             <!-- 这里为什么叫scroll-wrapper  因为样式中对它进行了设置 -->
@@ -27,11 +28,27 @@
 
 <script>
 import ArticleList from './components/article-list'
-// @ is an alias to /src
+import { getMyChannels } from '@/api/channels'
 
 export default {
   components: {
     ArticleList
+  },
+  data () {
+    return {
+      channels: []// 接收频道数据
+    }
+  },
+  methods: {
+    // 用async和await
+    async getMyChannels () {
+      const data = await getMyChannels()
+      this.channels = data.channels // 更新原来的channels
+    }
+  },
+  created () {
+    // 钩子函数中调用
+    this.getMyChannels()
   }
 }
 </script>
