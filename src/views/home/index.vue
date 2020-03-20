@@ -3,17 +3,18 @@
   <div class="container">
     <!-- 内部需要放置子 标签  title值为当前显示的内容-->
          <!-- van-tab是vant组件的样式  -->
-    <van-tabs v-model="active">
+    <van-tabs >
       <van-tab :title="`标签${item}`" v-for="item in 10" :key="item">
         <!-- 内容列表加div，且类名scroll-wrapper，为了滚动 -->
         <!-- 生成若干个单元格 -->
             <!-- 这里为什么叫scroll-wrapper  因为样式中对它进行了设置 -->
-        <div class="scroll-wrapper">
-          <!-- van-cell单元格为了加边框 -->
+        <!-- <div class="scroll-wrapper">
+          van-cell单元格为了加边框
           <van-cell-group>
             <van-cell :title="`标题${item}`" value="内容" v-for="item in 20" :key="item" />
           </van-cell-group>
-        </div>
+        </div> -->
+        <ArticleList></ArticleList>
         <!-- 在tabs下放置图标  编辑频道的图标 -->
           <span class="bar_btn">
             <!-- 放入图标 vant图标 -->
@@ -25,10 +26,13 @@
 </template>
 
 <script>
+import ArticleList from './components/article-list'
 // @ is an alias to /src
 
 export default {
-  components: {}
+  components: {
+    ArticleList
+  }
 }
 </script>
 <style lang="less" scoped >
