@@ -15,7 +15,7 @@
             <van-cell :title="`标题${item}`" value="内容" v-for="item in 20" :key="item" />
           </van-cell-group>
         </div> -->
-        <ArticleList></ArticleList>
+        <ArticleList :channel_id="item.id"></ArticleList>
         <!-- 在tabs下放置图标  编辑频道的图标 -->
           <span class="bar_btn">
             <!-- 放入图标 vant图标 -->
