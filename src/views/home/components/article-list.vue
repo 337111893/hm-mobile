@@ -100,6 +100,7 @@ export default {
       //   this.finished = true // 表示 数据已经全部加载完毕 没有数据了
       // }, 1000) // 等待一秒 然后关闭加载状态
       // this.timestamp || Date.now()  如果有历史时间戳 用历史时间戳 否则用当前的时间戳
+      await this.$sleep()
       const data = await getArticles({ channel_id: this.channel_id, timestamp: this.timestamp || Date.now() }) // this.channel_id指的是 当前的频道id
       //  获取内容
       this.articles.push(...data.results) // 将数据追加到队尾
@@ -116,6 +117,7 @@ export default {
     },
     // 下拉刷新
     async onRefresh () {
+      await this.$sleep()
       // 下拉刷新应该发送最新的时间戳
       const data = await getArticles({
         channel_id: this.channel_id,
