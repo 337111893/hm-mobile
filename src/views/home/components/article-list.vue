@@ -13,7 +13,8 @@
       <van-list finished-text="没有了" v-model="upLoading" :finished="finished" @load="onLoad">
         <!-- 循环内容 -->
         <van-cell-group>
-          <van-cell v-for="item in articles" :key="item.art_id">
+          <!-- item.art_id是大数字对象，key需要字符串或number -->
+          <van-cell v-for="item in articles" :key="item.art_id.toString()">
             <div class="article_item">
               <h3 class="van-ellipsis">2020年</h3>
               <div class="img_box">
@@ -92,7 +93,7 @@ export default {
       // this.timestamp || Date.now()  如果有历史时间戳 用历史时间戳 否则用当前的时间戳
       const data = await getArticles({ channel_id: this.channel_id, timestamp: this.timestamp || Date.now() }) // this.channel_id指的是 当前的频道id
       //  获取内容
-      this.articles.push(data.results) // 将数据追加到队尾
+      this.articles.push(...data.results) // 将数据追加到队尾
       this.upLoading = false // 关闭加载状态
       // 将历史时间戳 给timestamp  但是 赋值之前有个判断 需要判断一个历史时间是否为0
       // 如果历史时间戳为 0 说明 此时已经没有数据了 应该宣布 结束   finished true
