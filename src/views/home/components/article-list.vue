@@ -34,8 +34,9 @@
               <div class="info_box">
                 <span>{{ item.aut_name }}</span>
                 <span>{{ item.comm_count }}评论</span>
+                <!-- 使用过滤器 -->
                 <span>{{ item.pubdate | relTime }}</span>
-                <span class="close">
+                <span class="close" v-if="user.token">
                   <van-icon name="cross"></van-icon>
                 </span>
               </div>
@@ -48,9 +49,12 @@
 </template>
 
 <script>
-
+import { mapState } from 'vuex'
 import { getArticles } from '@/api/articles'// 引入请求模块
 export default {
+  computed: {
+    ...mapState(['user'])// 将user映射到计算属性中
+  },
   data () {
     return {
       successText: '', // 刷新成功的文本
