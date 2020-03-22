@@ -43,7 +43,8 @@ export default {
   data () {
     return {
       channels: [], // 接收频道数据
-      showMoreAction: false // 控制反馈组件显示隐藏
+      showMoreAction: false, // 控制反馈组件显示隐藏
+      articleId: null // 定义一个值接收,点击文章的id
     }
   },
   methods: {
@@ -52,9 +53,11 @@ export default {
       const data = await getMyChannels()
       this.channels = data.channels // 更新原来的channels
     },
-    openAction () {
+    openAction (artId) {
       // 此时弹出弹出层
       this.showMoreAction = true
+      //  应该把id给存储起来
+      this.articleId = artId
     }
   },
   created () {
