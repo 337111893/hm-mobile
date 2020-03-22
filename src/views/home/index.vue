@@ -15,28 +15,35 @@
             <van-cell :title="`标题${item}`" value="内容" v-for="item in 20" :key="item" />
           </van-cell-group>
         </div> -->
-        <ArticleList :channel_id="item.id"></ArticleList>
-        <!-- 在tabs下放置图标  编辑频道的图标 -->
+        <ArticleList @showAction="openAction" :channel_id="item.id"></ArticleList>
+      </van-tab>
+    </van-tabs>
+    <!-- 在tabs下放置图标  编辑频道的图标 -->
           <span class="bar_btn">
             <!-- 放入图标 vant图标 -->
             <van-icon name="wap-nav"></van-icon>
           </span>
-      </van-tab>
-    </van-tabs>
+    <!-- 弹层组件 -->
+    <van-popup :style="{ width: '80%' }" v-model="showMoreAction">
+      <!-- 放置反馈组件 -->
+      <more-action ></more-action>
+    </van-popup>
   </div>
 </template>
 
 <script>
 import ArticleList from './components/article-list'
+import MoreAction from './components/more-action'
 import { getMyChannels } from '@/api/channels'
 
 export default {
   components: {
-    ArticleList
+    ArticleList, MoreAction
   },
   data () {
     return {
-      channels: []// 接收频道数据
+      channels: [], // 接收频道数据
+      showMoreAction: false // 控制反馈组件显示隐藏
     }
   },
   methods: {
@@ -44,6 +51,10 @@ export default {
     async getMyChannels () {
       const data = await getMyChannels()
       this.channels = data.channels // 更新原来的channels
+    },
+    openAction () {
+      // 此时弹出弹出层
+      this.showMoreAction = true
     }
   },
   created () {

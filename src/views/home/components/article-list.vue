@@ -36,7 +36,7 @@
                 <span>{{ item.comm_count }}评论</span>
                 <!-- 使用过滤器 -->
                 <span>{{ item.pubdate | relTime }}</span>
-                <span class="close" v-if="user.token">
+                <span @click="$emit('showAction')" class="close" v-if="user.token">
                   <van-icon name="cross"></van-icon>
                 </span>
               </div>
