@@ -26,7 +26,7 @@
     <!-- 弹层组件 -->
     <van-popup :style="{ width: '80%' }" v-model="showMoreAction">
       <!-- 放置反馈组件 -->
-      <more-action @dislike="dislikeArticle"></more-action>
+      <more-action @dislike="dislikeOrReport('dislike')" @report="dislikeOrReport('report',$event)"></more-action>
     </van-popup>
   </div>
 </template>
@@ -35,7 +35,7 @@
 import ArticleList from './components/article-list'
 import MoreAction from './components/more-action'
 import { getMyChannels } from '@/api/channels'
-import { dislikeArticle } from '@/api/articles' // 不感兴趣
+import { dislikeArticle, reportArticle } from '@/api/articles' // 不感兴趣
 import eventbus from '@/utils/eventbus' // 公共事件处理器
 
 export default {
@@ -62,13 +62,15 @@ export default {
       //  应该把id给存储起来
       this.articleId = artId
     },
-    // 对文章不感兴趣
-    async dislikeArticle () {
+    // 对文章不感兴趣和举报都用一个方法，只是传参不一样
+    // operateType 是操作类型 如果是dislike 就是不喜欢 如果是 report 就是 举报
+    async dislikeOrReport (operateType, type) {
       // 调用不感兴趣的文章接口
       try {
-        await dislikeArticle({
+        // 需要根据一个参数来判断 是举报还是不喜欢
+        operateType === 'dislike' ? await dislikeArticle({
           target: this.articleId // 不感兴趣的id
-        })
+        }) : await reportArticle({ target: this.articleId, type }) //  这里的type怎么办 ?????? 通过$event传出来
         // await下方的逻辑 是 resolve(成功)之后 的
         this.$ynotify({
           type: 'success',
