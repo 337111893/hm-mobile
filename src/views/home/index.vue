@@ -31,7 +31,7 @@
     <!-- 频道编辑组件 -->
     <van-action-sheet :round="false" title="编辑频道" v-model="showChannelEdit">
       <!-- 将父组件数据传递给子组件 -->
-      <ChannelEdit :channels="channels"></ChannelEdit>
+      <ChannelEdit @selectChannel="selectChannel" :channels="channels"></ChannelEdit>
     </van-action-sheet>
   </div>
 </template>
@@ -61,6 +61,11 @@ export default {
     async getMyChannels () {
       const data = await getMyChannels()
       this.channels = data.channels // 更新原来的channels
+    },
+    // 从编辑组件过来的切换频道
+    selectChannel (index) {
+      this.activeIndex = index // 将对应频道的索引 设置给当前激活的 标签
+      this.showChannelEdit = false // 关闭弹层
     },
     openAction (artId) {
       // 此时弹出弹出层

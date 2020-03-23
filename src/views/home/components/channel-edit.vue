@@ -10,7 +10,8 @@
       <van-grid class="van-hairline--left">
           <!-- 渲染我的频道数据 -->
         <van-grid-item v-for="(item,index) in channels" :key="item.id">
-          <span class="f12">{{item.name}}</span>
+            <!-- 添加点击事件，传索引给父组件 -->
+          <span @click="$emit('selectChannel', index)" class="f12">{{item.name}}</span>
           <!-- 只有在编辑时叉号标签才显示 -->
           <!-- 因为第一个永远不显示 所以说条件应该加一个 不等于0 -->
           <van-icon v-if="index!==0 && editing" class="btn" name="cross"></van-icon>
