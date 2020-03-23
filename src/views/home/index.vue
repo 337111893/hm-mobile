@@ -30,7 +30,8 @@
     </van-popup>
     <!-- 频道编辑组件 -->
     <van-action-sheet :round="false" title="编辑频道" v-model="showChannelEdit">
-      <ChannelEdit></ChannelEdit>
+      <!-- 将父组件数据传递给子组件 -->
+      <ChannelEdit :channels="channels"></ChannelEdit>
     </van-action-sheet>
   </div>
 </template>
