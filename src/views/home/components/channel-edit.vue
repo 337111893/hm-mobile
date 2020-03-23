@@ -11,7 +11,8 @@
           <!-- 渲染我的频道数据 -->
         <van-grid-item v-for="(item,index) in channels" :key="item.id">
             <!-- 添加点击事件，传索引给父组件 -->
-          <span @click="$emit('selectChannel', index)" class="f12">{{item.name}}</span>
+            <!-- :class="{red: index===activeIndex }" 相等才会红色，不等不会 -->
+          <span @click="$emit('selectChannel', index)" :class="{red: index===activeIndex }" class="f12">{{item.name}}</span>
           <!-- 只有在编辑时叉号标签才显示 -->
           <!-- 因为第一个永远不显示 所以说条件应该加一个 不等于0 -->
           <van-icon v-if="index!==0 && editing" class="btn" name="cross"></van-icon>
@@ -48,6 +49,12 @@ export default {
       required: true,
       type: Array, // 数组形式
       default: () => []// 必须是个函数，给个箭头函数
+    },
+    // home传过来的选中的索引
+    activeIndex: {
+      required: true, // 表示必须传递channels
+      type: Number, // 指定type是number类型
+      default: 0
     }
   },
   methods: {
