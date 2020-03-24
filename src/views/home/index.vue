@@ -31,7 +31,7 @@
     <!-- 频道编辑组件 -->
     <van-action-sheet :round="false" title="编辑频道" v-model="showChannelEdit">
       <!-- 将父组件数据传递给子组件 -->
-      <ChannelEdit @delChannel="delChannel" :activeIndex="activeIndex" @selectChannel="selectChannel" :channels="channels"></ChannelEdit>
+      <ChannelEdit @addChannel="addChannel" @delChannel="delChannel" :activeIndex="activeIndex" @selectChannel="selectChannel" :channels="channels"></ChannelEdit>
     </van-action-sheet>
   </div>
 </template>
@@ -39,7 +39,7 @@
 <script>
 import ArticleList from './components/article-list'
 import MoreAction from './components/more-action'
-import { getMyChannels, delChannel } from '@/api/channels'
+import { getMyChannels, delChannel, addChannel } from '@/api/channels'
 import { dislikeArticle, reportArticle } from '@/api/articles' // 不感兴趣
 import eventbus from '@/utils/eventbus' // 公共事件处理器
 import ChannelEdit from './components/channel-edit'
@@ -75,6 +75,12 @@ export default {
       } catch (error) {
         this.$ynotify({ message: '删除频道失败' })
       }
+    },
+    // 添加频道
+    async  addChannel (channel) {
+      // 调用api，将频道写入缓存成功之后将该频道添加到data数据
+      await addChannel(channel)// 写入缓存
+      this.channels.push(channel) // 自身加一个频道 影响子组件
     },
     // 用async和await
     async getMyChannels () {
