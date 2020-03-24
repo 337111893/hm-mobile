@@ -15,7 +15,8 @@
           <span @click="$emit('selectChannel', index)" :class="{red: index===activeIndex }" class="f12">{{item.name}}</span>
           <!-- 只有在编辑时叉号标签才显示 -->
           <!-- 因为第一个永远不显示 所以说条件应该加一个 不等于0 -->
-          <van-icon v-if="index!==0 && editing" class="btn" name="cross"></van-icon>
+          <!-- 调用辅助间方法，传id -->
+          <van-icon @click="$emit('delChannel', item.id)" v-if="index!==0 && editing" class="btn" name="cross"></van-icon>
         </van-grid-item>
       </van-grid>
     </div>
