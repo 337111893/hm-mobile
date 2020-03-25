@@ -14,7 +14,8 @@
         <!-- 循环内容 -->
         <van-cell-group>
           <!-- item.art_id是大数字对象，key需要字符串或number -->
-          <van-cell v-for="item in articles" :key="item.art_id.toString()">
+          <!-- 加to属性，跳转到文章详情 -->
+          <van-cell :to="`/article?artId=${item.art_id.toString()}`" v-for="item in articles" :key="item.art_id.toString()">
             <div class="article_item">
               <h3 class="van-ellipsis">{{item.title}}</h3>
               <!-- 根据当前的封面类型决定显示单图 三图 还是无图 -->
@@ -36,7 +37,7 @@
                 <span>{{ item.comm_count }}评论</span>
                 <!-- 使用过滤器 -->
                 <span>{{ item.pubdate | relTime }}</span>
-                <span @click="$emit('showAction',item.art_id.toString())" class="close" v-if="user.token">
+                <span @click.stop="$emit('showAction',item.art_id.toString())" class="close" v-if="user.token">
                   <van-icon name="cross"></van-icon>
                 </span>
               </div>
