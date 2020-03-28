@@ -60,9 +60,9 @@ export default {
     async follow () {
       this.followLoading = true
       try {
-      //  调用 关注或者取消关注
-      // 关注  => 取消关注
-      // 未关注 => 关注
+        //  调用 关注或者取消关注
+        // 关注  => 取消关注
+        // 未关注 => 关注
         if (this.article.is_followed) {
         // 取消关注
           await unFollowUser(this.article.aut_id) // 传入作者id
