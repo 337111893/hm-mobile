@@ -17,5 +17,12 @@ module.exports = {
         }
       }
     }
-  }
+  },
+  // 删除生产环境的console
+  configureWebpack: (config) => {
+    if (process.env.NODE_ENV === 'production') {
+      config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true
+    }
+  },
+  publicPath: './'// 打包后的引用地址
 }
