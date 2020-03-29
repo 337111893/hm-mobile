@@ -9,9 +9,14 @@ export default new Vuex.Store({
   state: {
     // 因为俩个token定义一个对象,// 专门来放置需要共享的状态
     // 且第一个是可能获取本地，所以获取直接调用auth的方法
-    user: auth.getUser()
+    user: auth.getUser(),
+    photo: null // 用户头像
   },
   mutations: {
+    // 更新photo
+    updatePhoto (state, payload) {
+      state.photo = payload.photo // 在载荷中传入photo
+    },
     // 修改token
     updateUser (state, payload) {
       // 设置的直接赋值，定义载荷中的user数据给本地state
